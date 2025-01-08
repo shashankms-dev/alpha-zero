@@ -44,8 +44,8 @@ class chain_reaction:
             
             if abs(state[0,self.column_count-1]) > 1:
                 state[0,self.column_count-1] -= 2*player
-                state[0,self.column_count-2] = state[0,self.column_count-2]*(-1,1)[state[0,0] * player >= 0] + player
-                state[1,self.column_count-1] = state[1,self.column_count-1]*(-1,1)[state[0,0] * player >= 0] + player
+                state[0,self.column_count-2] = state[0,self.column_count-2]*(-1,1)[state[0,self.column_count-2] * player >= 0] + player
+                state[1,self.column_count-1] = state[1,self.column_count-1]*(-1,1)[state[1,self.column_count-1] * player >= 0] + player
             
             if abs(state[self.row_count-1,0]) > 1:
                 state[self.row_count-1,0] -= 2*player

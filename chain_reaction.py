@@ -2,9 +2,9 @@ import numpy as np
 print("numpy_version = ", np.__version__)
 
 class chain_reaction:
-    def __init__(self):
-        self.row_count = 3
-        self.column_count = 3
+    def __init__(self, row_count, column_count):
+        self.row_count = row_count
+        self.column_count = column_count
         self.move_limit = (3 * self.row_count * self.column_count) - (2 * self.row_count) - (2 * self.column_count)
         self.move_count = 0
         
@@ -132,7 +132,7 @@ class chain_reaction:
         
 
 # main code
-cr = chain_reaction()
+cr = chain_reaction(3,3)
 player = 1
 state = cr.get_initial_state()
 

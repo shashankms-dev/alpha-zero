@@ -37,62 +37,62 @@ class chain_reaction:
         while not self.check_stable(state):
             #1
             if abs(state[0,0]) > 1:
-                p = 1 if (state[0,0] * player >= 0) else -1
+                #p = (-1,1)[(state[0,0] * player) >= 0]
                 state[0,0] -= 2*player
-                state[0,1] = state[0,1]*p + player
-                state[1,0] = state[1,0]*p + player
+                state[0,1] = state[0,1]*(-1,1)[state[0,1] * player >= 0] + player
+                state[1,0] = state[1,0]*(-1,1)[state[1,0] * player >= 0] + player
+            
             if abs(state[0,self.column_count-1]) > 1:
-                p = 1 if (state[0,self.column_count-1] * player >= 0) else -1
                 state[0,self.column_count-1] -= 2*player
-                state[0,self.column_count-2] = state[0,self.column_count-2]*p + player
-                state[1,self.column_count-1] = state[1,self.column_count-1]*p + player
+                state[0,self.column_count-2] = state[0,self.column_count-2]*(-1,1)[state[0,0] * player >= 0] + player
+                state[1,self.column_count-1] = state[1,self.column_count-1]*(-1,1)[state[0,0] * player >= 0] + player
+            
             if abs(state[self.row_count-1,0]) > 1:
-                p = 1 if (state[self.row_count-1,0] * player >= 0) else -1
-                state[self.row_count-1,0] = state[self.row_count-1,0] - 2*player
-                state[self.row_count-1,1] = state[self.row_count-1,1]*p + player
-                state[self.row_count-2,0] = state[self.row_count-2,0]*p + player     
+                state[self.row_count-1,0] -= 2*player
+                state[self.row_count-1,1] = state[self.row_count-1,1]*(-1,1)[state[self.row_count-1,1] * player >= 0] + player
+                state[self.row_count-2,0] = state[self.row_count-2,0]*(-1,1)[state[self.row_count-2,0] * player >= 0] + player     
+            
             if abs(state[self.row_count-1,self.column_count-1]) > 1:
-                p = 1 if (state[self.row_count-1,self.column_count-1] * player >= 0) else -1
-                state[self.row_count-1,self.column_count-1] = state[self.row_count-1,self.column_count-1] - 2*player
-                state[self.row_count-1,self.column_count-2] = state[self.row_count-1,self.column_count-2]*p + player
-                state[self.row_count-2,self.column_count-1] = state[self.row_count-2,self.column_count-1]*p + player 
+                state[self.row_count-1,self.column_count-1] -= 2*player
+                state[self.row_count-1,self.column_count-2] = state[self.row_count-1,self.column_count-2]*(-1,1)[state[self.row_count-1,self.column_count-2] * player >= 0] + player
+                state[self.row_count-2,self.column_count-1] = state[self.row_count-2,self.column_count-1]*(-1,1)[state[self.row_count-2,self.column_count-1] * player >= 0] + player 
+            
             #2
             for col in range(1, self.column_count-1):
                 if abs(state[0,col]) > 2:
-                    p = 1 if (state[0,col] * player >= 0) else -1
                     state[0,col] -= 3*player
-                    state[0,col-1] = state[0,col-1]*p + player
-                    state[0,col+1] = state[0,col+1]*p + player
-                    state[1,col] = state[1,col]*p + player     
+                    state[0,col-1] = state[0,col-1]*(-1,1)[state[0,col-1] * player >= 0] + player
+                    state[0,col+1] = state[0,col+1]*(-1,1)[state[0,col+1] * player >= 0] + player
+                    state[1,col] = state[1,col]*(-1,1)[state[1,col] * player >= 0] + player     
+                
                 if abs(state[self.row_count-1,col]) > 2:
-                    p = 1 if (state[self.row_count-1,col] * player >= 0) else -1
                     state[self.row_count-1,col] -= 3*player
-                    state[self.row_count-1,col-1] = state[self.row_count-1,col-1]*p + player
-                    state[self.row_count-1,col+1] = state[self.row_count-1,col+1]*p + player
-                    state[self.row_count-2,col] = state[self.row_count-2,col]*p + player       
+                    state[self.row_count-1,col-1] = state[self.row_count-1,col-1]*(-1,1)[state[self.row_count-1,col-1] * player >= 0] + player
+                    state[self.row_count-1,col+1] = state[self.row_count-1,col+1]*(-1,1)[state[self.row_count-1,col+1] * player >= 0] + player
+                    state[self.row_count-2,col] = state[self.row_count-2,col]*(-1,1)[state[self.row_count-2,col] * player >= 0] + player       
+            
             for row in range(1, self.row_count-1):
                 if abs(state[row, 0]) > 2:
-                    p = 1 if (state[row, 0] * player >= 0) else -1
                     state[row, 0] -= 3*player
-                    state[row-1,0] = state[row-1,0]*p + player 
-                    state[row+1,0] = state[row+1,0]*p + player
-                    state[row,1] = state[row,1]*p + player
+                    state[row-1,0] = state[row-1,0]*(-1,1)[state[row-1,0] * player >= 0] + player 
+                    state[row+1,0] = state[row+1,0]*(-1,1)[state[row+1,0] * player >= 0] + player
+                    state[row,1] = state[row,1]*(-1,1)[state[row,1] * player >= 0] + player
+                
                 if abs(state[row, self.column_count-1]) > 2:
-                    p = 1 if (state[row, self.column_count-1] * player >= 0) else -1
                     state[row, self.column_count-1] -= 3*player
-                    state[row-1,self.column_count-1] = state[row-1,self.column_count-1]*p + player 
-                    state[row+1,self.column_count-1] = state[row+1,self.column_count-1]*p + player
-                    state[row,self.column_count-2] = state[row,self.column_count-2]*p + player
+                    state[row-1,self.column_count-1] = state[row-1,self.column_count-1]*(-1,1)[state[row-1,self.column_count-1] * player >= 0] + player 
+                    state[row+1,self.column_count-1] = state[row+1,self.column_count-1]*(-1,1)[state[row+1,self.column_count-1] * player >= 0] + player
+                    state[row,self.column_count-2] = state[row,self.column_count-2]*(-1,1)[state[row,self.column_count-2] * player >= 0] + player
+            
             #3
             for row in range(1, self.row_count-1):
                 for col in range(1, self.column_count-1):
                     if abs(state[row,col]) > 3:
-                        p = 1 if (state[row,col] * player >= 0) else -1
                         state[row,col] -= 4*player
-                        state[row,col-1] = state[row,col-1]*p + player
-                        state[row,col+1] = state[row,col+1]*p + player
-                        state[row-1,col] = state[row-1,col]*p + player
-                        state[row+1,col] = state[row+1,col]*p + player
+                        state[row,col-1] = state[row,col-1]*(-1,1)[state[row,col-1] * player >= 0] + player
+                        state[row,col+1] = state[row,col+1]*(-1,1)[state[row,col+1] * player >= 0] + player
+                        state[row-1,col] = state[row-1,col]*(-1,1)[state[row-1,col] * player >= 0] + player
+                        state[row+1,col] = state[row+1,col]*(-1,1)[state[row+1,col] * player >= 0] + player
                         
     def check_stable(self, state):
         #1

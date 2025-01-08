@@ -28,8 +28,8 @@ class chain_reaction:
     def get_next_state(self, state, player, action):
         self.move_count += 1
         row, column = action
-        print("row = ", row, "column = ", column)
         state[row,column] += player
+        # call run_chain() only if current cell overflows 
         self.run_chain(state, player)
         return state
         
@@ -123,7 +123,7 @@ class chain_reaction:
                 return 0, True
                 
     def check_win(self, state, player):
-        cell_count = (0,0)
+        cell_count = [0,0]
         for row in range(0, self.row_count):
             for col in range(0, self.column_count):
                 if state[row,col] > 0:
@@ -131,30 +131,29 @@ class chain_reaction:
                 else:
                     cell_count[1] += 1
                     
-        if cell_count[0] == 0 or cell_count[1] == 0:
-            return True
+        if player > 0:
+            return cell_count[0] > cell_count[1]
         else:
-            return False
+            return cell_count[0] < cell_count[1]
         
     def get_opponent(self, player):
         return -player
         
 
 # main code
-cr = chain_reaction(3,3)
+cr = chain_reaction(6,6)
 player = 1
 state = cr.get_initial_state()
 
 while True:
     print(state)
     action = tuple(map(int, input(f"{player}:").split(',')))
-    print(action)
     if not cr.check_valid(state, player, action):
         continue
     state = cr.get_next_state(state, player, action)  
-    value, is_terminal = cr.get_value_and_terminated(state, action)
+    value, terminated = cr.get_value_and_terminated(state, player)
     
-    if is_terminal:
+    if terminated:
         print(state)
         if value == 1:
             print("Player %d won" % player)
@@ -163,3 +162,7 @@ while True:
         break
         
     player = cr.get_opponent(player)
+    
+    
+    
+    
